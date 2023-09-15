@@ -1,49 +1,62 @@
+// src/UserForm.tsx
 import React, { useState } from "react";
-import { TextField, Button, Grid, Paper, Container } from "@mui/material";
+import { Button, TextField, Stack, Container, Paper } from "@mui/material";
 import { useUserContext } from "../utils/UserContext";
-import "./customcss.css";
+
 const Form1: React.FC = () => {
   const { addUser } = useUserContext();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
-  const handleSubmit = () => {
-    const newUser = {
-      id: Date.now(),
-      name,
-      email,
-    };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const id = Date.now();
+    const newUser = { id, name, email, phoneNumber };
     addUser(newUser);
     setName("");
     setEmail("");
+    setPhoneNumber("");
   };
 
   return (
     <Container maxWidth="sm">
       <Paper elevation={3} style={{ padding: "20px" }}>
-        <h2>User Registration</h2>
-
-        <TextField
-          fullWidth
-          className="custom-textfield"
-          label="Name"
-          value={name}
-          margin="normal"
-          onChange={(e) => setName(e.target.value)}
-        />
-
-        <TextField
-          fullWidth
-          className="custom-textfield"
-          label="Email"
-          value={email}
-          margin="normal"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
-          Register
-        </Button>
+        <form onSubmit={handleSubmit}>
+          <h2>Register Yourself</h2>
+          <Stack spacing={4}>
+            <TextField
+              label="Name"
+              variant="outlined"
+              value={name}
+              className="custom-textfield"
+              margin="normal"
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <TextField
+              label="Email"
+              variant="outlined"
+              className="custom-textfield"
+              margin="normal"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <TextField
+              label="Number"
+              variant="outlined"
+              className="custom-textfield"
+              margin="normal"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              required
+            />
+            <Button type="submit" variant="contained" color="primary">
+              Add User
+            </Button>
+          </Stack>
+        </form>
       </Paper>
     </Container>
   );

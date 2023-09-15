@@ -23,7 +23,7 @@ const Form2: React.FC = () => {
   return (
     <Container maxWidth="sm">
       <Paper elevation={3} style={{ padding: "20px" }}>
-        <h2>User Deatils</h2>
+        <h2>User </h2>
 
         <TextField
           label="Phone Number"
